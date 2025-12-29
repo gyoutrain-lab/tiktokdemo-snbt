@@ -15,13 +15,6 @@ html,body{
   font-family:system-ui,Segoe UI,Inter,sans-serif;
 }
 
-.stage{
-  position:relative;
-  width:100%;
-  height:100%;
-}
-
-/* PHONE BODY */
 .phone{
   position:absolute;
   left:50%;
@@ -34,20 +27,15 @@ html,body{
   box-shadow:0 50px 140px rgba(0,0,0,.9);
 }
 
-/* SCREEN */
 .screen{
   position:absolute;
   inset:16px;
   border-radius:30px;
   overflow:hidden;
-  background:
-    radial-gradient(circle at center,
-      rgba(255,255,255,.08),
-      rgba(255,255,255,.02) 45%,
-      #000 75%);
+  background:#000;
 }
 
-/* NEW RIM — SOFT WHITE / SILVER */
+/* RIM — DI ATAS SEMUA */
 .screen::before{
   content:"";
   position:absolute;
@@ -55,10 +43,9 @@ html,body{
   border-radius:30px;
   border:1px solid rgba(230,230,230,.45);
   box-shadow:
-    inset 0 0 18px rgba(255,255,255,.12),
-    inset 0 0 3px rgba(255,255,255,.25),
-    0 0 0 1px rgba(180,180,180,.15);
-  z-index:10;
+    inset 0 0 14px rgba(255,255,255,.12),
+    inset 0 0 3px rgba(255,255,255,.25);
+  z-index:20;
   pointer-events:none;
 }
 
@@ -70,46 +57,36 @@ html,body{
   font-size:13px;
   font-weight:700;
   color:#f0f0f0;
-  letter-spacing:.5px;
-  z-index:11;
+  z-index:15;
 }
 
 /* TITLE */
-.title-wrap{
-  position:absolute;
-  top:22px;
-  width:100%;
-  z-index:11;
-}
+.title-wrap{position:absolute;top:22px;width:100%;z-index:15}
 .subtitle{
-  position:absolute;
-  top:66px;
-  width:100%;
-  text-align:center;
-  font-size:15px;
-  font-weight:700;
-  color:#fff;
+  position:absolute;top:66px;width:100%;
+  text-align:center;font-size:15px;font-weight:700;color:#fff;z-index:15;
 }
 .hook{
-  position:absolute;
-  top:92px;
-  width:100%;
-  text-align:center;
-  font-size:17px;
-  font-weight:800;
-  color:#00e0ff;
+  position:absolute;top:92px;width:100%;
+  text-align:center;font-size:17px;font-weight:800;color:#00e0ff;z-index:15;
 }
 
-/* VIDEO */
+/* VIDEO — CENTERED & SAFE */
+.video-wrap{
+  position:absolute;
+  inset:0;
+  z-index:4;
+}
+
 video{
   position:absolute;
-  top:118px;
-  left:0;
-  right:0;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
   width:100%;
-  height:220px;
+  max-height:260px;
   object-fit:contain;
-  z-index:3;
+  background:#000;
 }
 
 /* QUIZ */
@@ -120,12 +97,9 @@ video{
   right:14px;
   font-size:14px;
   color:#fff;
-  z-index:5;
+  z-index:10;
 }
-.quiz-q{
-  font-weight:700;
-  margin-bottom:6px;
-}
+
 .quiz-opt span{
   display:inline-block;
   margin-right:8px;
@@ -134,8 +108,7 @@ video{
 
 @keyframes scatter{
   0%{transform:translate(0,0) scale(1)}
-  40%{transform:translate(12px,-8px) scale(1.15)}
-  60%{transform:translate(-10px,6px) scale(.9)}
+  50%{transform:translate(10px,-6px) scale(1.1)}
   100%{transform:translate(0,0) scale(1)}
 }
 
@@ -146,7 +119,7 @@ video{
   font-weight:600;
   opacity:.65;
   animation: mathMove 6s linear infinite alternate;
-  z-index:4;
+  z-index:6;
 }
 .green{color:#7cff00}
 .white{color:#fff}
@@ -160,22 +133,45 @@ video{
 </head>
 
 <body>
-<div class="stage">
-  <div class="phone">
-    <div class="screen">
+<div class="phone">
+  <div class="screen">
 
-      <div class="brand">ETK Yogya</div>
+    <div class="brand">ETK Yogya</div>
 
-      <div class="title-wrap">
-        <svg viewBox="0 0 320 80" width="100%" height="80">
-          <path id="curve" d="M20,65 Q160,10 300,65" fill="none"/>
-          <text fill="#ffd700" font-size="16" font-weight="800">
-            <textPath href="#curve" startOffset="50%" text-anchor="middle">
-              CBTLearning | Bahas Soal | Mudah | SNBT'26
-            </textPath>
-          </text>
-        </svg>
+    <div class="title-wrap">
+      <svg viewBox="0 0 320 80" width="100%" height="80">
+        <path id="curve" d="M20,65 Q160,10 300,65" fill="none"/>
+        <text fill="#ffd700" font-size="16" font-weight="800">
+          <textPath href="#curve" startOffset="50%" text-anchor="middle">
+            CBTLearning|Bahas|Mudah|SNBT'26
+          </textPath>
+        </text>
+      </svg>
+    </div>
+
+    <div class="subtitle">Rationale Generator</div>
+    <div class="hook">Bukan cuma jawaban — tapi alasannya</div>
+
+    <div class="video-wrap">
+      <video autoplay muted loop playsinline>
+        <source src="https://raw.githubusercontent.com/gyoutrain-lab/tiktokdemo-snbt/main/videos/CutV2.mp4" type="video/mp4">
+      </video>
+    </div>
+
+    <div class="math green" style="top:180px;left:18px;">√x² + 4</div>
+    <div class="math white" style="top:210px;right:30px;">∑ log n</div>
+
+    <div class="quiz">
+      <div><b>Jika harga Rp50.000 naik 20%, harga baru adalah…</b></div>
+      <div class="quiz-opt">
+        <span>A. 55.000</span>
+        <span>B. 58.000</span>
+        <span>C. 60.000</span>
+        <span>D. 62.000</span>
       </div>
+    </div>
 
-      <div class="subtitle">Rationale Generator</div>
-      <div class="hook">Bukan cuma
+  </div>
+</div>
+</body>
+</html>
