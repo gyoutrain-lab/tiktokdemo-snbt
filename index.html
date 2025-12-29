@@ -21,7 +21,7 @@ html,body{
   height:100%;
 }
 
-/* PHONE BODY (3D) */
+/* PHONE (3D) */
 .phone{
   position:absolute;
   left:50%;
@@ -31,12 +31,10 @@ html,body{
   transform:translate(-50%,-50%);
   border-radius:38px;
   background:linear-gradient(145deg,#0a0a0a,#000);
-  box-shadow:
-    0 50px 140px rgba(0,0,0,.9),
-    inset 0 0 0 1px rgba(255,215,0,.08);
+  box-shadow:0 50px 140px rgba(0,0,0,.9);
 }
 
-/* INNER SCREEN */
+/* SCREEN */
 .screen{
   position:absolute;
   inset:16px;
@@ -44,100 +42,115 @@ html,body{
   overflow:hidden;
   background:
     radial-gradient(circle at center,
-      rgba(255,215,0,.16),
-      rgba(255,215,0,.05) 45%,
+      rgba(255,215,0,.15),
+      rgba(255,215,0,.04) 45%,
       #000 75%);
 }
 
-/* INNER RIM FOLLOWING PHONE */
+/* RIM */
 .screen::before{
   content:"";
   position:absolute;
   inset:0;
   border-radius:30px;
-  border:1px solid rgba(255,215,0,.4);
-  box-shadow:
-    inset 0 0 24px rgba(255,215,0,.18),
-    inset 0 0 2px rgba(255,255,255,.15);
-  z-index:5;
+  border:1px solid rgba(255,215,0,.35);
+  box-shadow:inset 0 0 20px rgba(255,215,0,.18);
+  z-index:10;
   pointer-events:none;
-}
-
-/* VIDEO */
-video{
-  position:absolute;
-  top:120px;
-  bottom:90px;
-  left:0;
-  right:0;
-  width:100%;
-  height:auto;
-  object-fit:contain;
-  z-index:2;
 }
 
 /* BRAND */
 .brand{
   position:absolute;
   top:14px;
-  right:20px;
+  right:18px;
   font-size:13px;
   font-weight:700;
-  letter-spacing:.6px;
   color:#ffd700;
-  z-index:6;
+  z-index:11;
 }
 
-/* SVG TITLE */
+/* TITLE */
 .title-wrap{
   position:absolute;
-  top:26px;
-  left:0;
+  top:22px;
   width:100%;
-  z-index:6;
+  z-index:11;
 }
-
 .subtitle{
   position:absolute;
-  top:72px;
+  top:66px;
   width:100%;
   text-align:center;
   font-size:15px;
   font-weight:700;
   color:#fff;
-  opacity:.95;
-  z-index:6;
 }
-
-/* HOOK */
 .hook{
   position:absolute;
-  top:98px;
+  top:92px;
   width:100%;
   text-align:center;
   font-size:17px;
   font-weight:800;
   color:#00e0ff;
-  text-shadow:0 6px 24px rgba(0,0,0,.9);
-  z-index:6;
+}
+
+/* VIDEO */
+video{
+  position:absolute;
+  top:118px;
+  left:0;
+  right:0;
+  width:100%;
+  height:220px;
+  object-fit:contain;
+  z-index:3;
+}
+
+/* QUIZ */
+.quiz{
+  position:absolute;
+  bottom:18px;
+  left:14px;
+  right:14px;
+  font-size:14px;
+  color:#fff;
+  z-index:5;
+}
+.quiz-q{
+  font-weight:700;
+  margin-bottom:6px;
+}
+.quiz-opt span{
+  display:inline-block;
+  margin-right:8px;
+  animation: scatter 4s ease-in-out infinite;
+}
+
+@keyframes scatter{
+  0%{transform:translate(0,0) scale(1)}
+  40%{transform:translate(12px,-8px) scale(1.15)}
+  60%{transform:translate(-10px,6px) scale(.9)}
+  100%{transform:translate(0,0) scale(1)}
 }
 
 /* FLOATING MATH */
 .math{
   position:absolute;
-  font-size:16px;
+  font-size:15px;
   font-weight:600;
   opacity:.65;
-  animation: drift 8s ease-in-out infinite alternate;
+  animation: mathMove 6s linear infinite alternate;
   z-index:4;
 }
-
-.white{color:#fff}
 .green{color:#7cff00}
+.white{color:#fff}
 
-@keyframes drift{
-  from{transform:translate(0,0) scale(.9)}
-  to{transform:translate(20px,-20px) scale(1.1)}
+@keyframes mathMove{
+  0%{transform:translate(0,0) scale(.8)}
+  50%{transform:translate(20px,-20px) scale(1.3)}
+  100%{transform:translate(-15px,15px) scale(.9)}
 }
 </style>
 </head>
@@ -150,22 +163,19 @@ video{
       <!-- BRAND -->
       <div class="brand">ETK Yogya</div>
 
-      <!-- ARCH TITLE -->
+      <!-- TITLE -->
       <div class="title-wrap">
-        <svg viewBox="0 0 320 90" width="100%" height="90">
-          <path id="curve" d="M20,70 Q160,10 300,70" fill="none"/>
+        <svg viewBox="0 0 320 80" width="100%" height="80">
+          <path id="curve" d="M20,65 Q160,10 300,65" fill="none"/>
           <text fill="#ffd700" font-size="16" font-weight="800">
             <textPath href="#curve" startOffset="50%" text-anchor="middle">
-              CBTLearning|Bahas|Mudah|SNBT'26
+              CBTLearning | Bahas Soal | Mudah | SNBT'26
             </textPath>
           </text>
         </svg>
       </div>
 
-      <!-- SUBTITLE -->
       <div class="subtitle">Rationale Generator</div>
-
-      <!-- HOOK -->
       <div class="hook">Bukan cuma jawaban — tapi alasannya</div>
 
       <!-- VIDEO -->
@@ -175,9 +185,22 @@ video{
 
       <!-- FLOATING MATH -->
       <div class="math green" style="top:160px;left:20px;">√x² + 4</div>
-      <div class="math white" style="top:200px;right:30px;">∑ log n</div>
-      <div class="math green" style="bottom:140px;left:40px;">ΔP = 20%</div>
-      <div class="math white" style="bottom:120px;right:36px;">x → y</div>
+      <div class="math white" style="top:190px;right:30px;">∑ log n</div>
+      <div class="math green" style="top:260px;left:50px;">ΔP = 20%</div>
+      <div class="math white" style="top:280px;right:40px;">x → y</div>
+
+      <!-- QUIZ -->
+      <div class="quiz">
+        <div class="quiz-q">
+          Jika harga Rp50.000 naik 20%, harga baru adalah…
+        </div>
+        <div class="quiz-opt">
+          <span>A. 55.000</span>
+          <span>B. 58.000</span>
+          <span>C. 60.000</span>
+          <span>D. 62.000</span>
+        </div>
+      </div>
 
     </div>
   </div>
