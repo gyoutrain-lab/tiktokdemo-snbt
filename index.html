@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Rationale Generator – Cinematic</title>
+<title>Rationale Generator | Cinematic</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
 <style>
@@ -30,39 +30,30 @@ html,body{
   pointer-events:none;z-index:50;
 }
 
-/* ---------- STATIC UI ---------- */
+/* BRAND & TITLES */
 .brand{position:absolute;top:14px;right:16px;color:#eee;font-size:13px;font-weight:700;z-index:30}
 .title{position:absolute;top:14px;width:100%;z-index:20}
 .subtitle{position:absolute;top:78px;width:100%;text-align:center;color:#fff;font-weight:700}
 .hook{position:absolute;top:102px;width:100%;text-align:center;color:#00e0ff;font-weight:800}
 
+/* VIDEO */
 .video-wrap{
-  position:absolute;top:160px;left:0;right:0;height:260px;
+  position:absolute;top:150px;left:0;right:0;height:260px;
 }
 video{width:100%;height:100%;object-fit:contain;background:#000}
 
-/* ---------- QUIZ ---------- */
+/* QUIZ */
 .quiz{
   position:absolute;bottom:22px;left:16px;right:16px;
   color:#fff;font-size:14px;z-index:10;
 }
-.quiz span{display:inline-block;margin-right:10px}
-
-/* ---------- STEP NUMBERS ---------- */
-.steps{
-  position:absolute;top:190px;left:20px;right:20px;
-  display:grid;grid-template-columns:repeat(4,1fr);gap:10px;
-  z-index:12;
-}
-.step{
-  text-align:center;
-  font-weight:900;
-  font-size:18px;
-  color:#ffd700;
-  opacity:.85;
+.quiz span{
+  display:inline-block;
+  margin-right:10px;
+  transition:transform .4s ease;
 }
 
-/* ---------- FLYING WORD ---------- */
+/* FLYING WORD */
 .fly{
   position:absolute;
   font-weight:900;
@@ -94,23 +85,13 @@ CBTLearning|Bahas|Mudah|SNBT'26
 </svg>
 </div>
 
-<div class="subtitle">Rationale Generator</div>
+<div class="subtitle" id="rationale">Rationale Generator</div>
 <div class="hook">Pahami alasan, bukan hafalan</div>
 
 <div class="video-wrap">
 <video id="vid" autoplay muted loop playsinline>
 <source src="https://raw.githubusercontent.com/gyoutrain-lab/tiktokdemo-snbt/main/videos/CutV2.mp4">
 </video>
-</div>
-
-<div class="steps">
-<div class="step" data-word="Domain">1</div>
-<div class="step" data-word="Kompetensi">2</div>
-<div class="step" data-word="Konsep">3</div>
-<div class="step" data-word="Logika">4</div>
-<div class="step" data-word="Jebakan">5</div>
-<div class="step" data-word="Eliminasi">6</div>
-<div class="step" data-word="Kesimpulan">7</div>
 </div>
 
 <div class="quiz" id="quiz">
@@ -123,20 +104,26 @@ CBTLearning|Bahas|Mudah|SNBT'26
 </div>
 
 <script>
-const screen=document.querySelector(".screen");
-const video=document.getElementById("vid");
-const quiz=document.getElementById("quiz");
-const steps=[...document.querySelectorAll(".step")];
+/* ---------- BPM LOCK ---------- */
+const BPM = 72;
+const BEAT = 60 / BPM;
 
-function emit(text,x,y,color="#fff"){
-  const e=document.createElement("div");
+const video = document.getElementById("vid");
+const screen = document.querySelector(".screen");
+const quiz = document.getElementById("quiz");
+const rationale = document.getElementById("rationale");
+
+/* ---------- EMIT CORE ---------- */
+function emitFromElement(el, text, color="#fff"){
+  const r = el.getBoundingClientRect();
+  const e = document.createElement("div");
   e.className="fly";
   e.textContent=text;
-  e.style.left=x+"px";
-  e.style.top=y+"px";
+  e.style.left = (r.left + r.width/2) + "px";
+  e.style.top  = (r.top  + r.height/2) + "px";
   e.style.color=color;
+  e.style.fontSize = 18 + Math.random()*8 + "px";
   e.style.opacity=1;
-  e.style.fontSize=18+Math.random()*8+"px";
   e.style.textShadow="0 0 14px rgba(255,255,255,.35)";
   screen.appendChild(e);
 
@@ -151,42 +138,46 @@ function emit(text,x,y,color="#fff"){
   setTimeout(()=>e.remove(),3400);
 }
 
-/* ---------- STATE LOGIC ---------- */
-let lastState="";
+/* ---------- BEAT CLOCK ---------- */
+let lastBeat=-1;
+let state="";
 
 video.addEventListener("timeupdate",()=>{
-  const t=video.currentTime;
+  const t = video.currentTime;
+  const beat = Math.floor(t / BEAT);
+  if (beat === lastBeat) return;
+  lastBeat = beat;
 
-  if(t<6 && lastState!=="quiz"){
-    lastState="quiz";
-    const r=quiz.getBoundingClientRect();
-    emit("SNBT QUIZ",r.left+r.width/2,r.top,"#00e0ff");
-  }
-
-  if(t>6 && t<14 && lastState!=="rat"){
-    lastState="rat";
-    emit("RATIONALE GENERATOR",170,300,"#ffd700");
-  }
-
-  if(t>14 && lastState!=="steps"){
-    lastState="steps";
-    steps.forEach((s,i)=>{
-      const r=s.getBoundingClientRect();
-      setTimeout(()=>emit(s.dataset.word,r.left+r.width/2,r.top,"#fff"),i*220);
+  /* QUIZ PHASE */
+  if (t < 6){
+    state="quiz";
+    quiz.querySelectorAll("span").forEach(s=>{
+      s.style.transform=`translate(${Math.random()*8-4}px,${Math.random()*8-4}px)`;
     });
+    if (beat % 2 === 0){
+      emitFromElement(quiz,"SNBT QUIZ","#00e0ff");
+    }
+  }
+
+  /* RATIONALE PHASE */
+  if (t >= 6 && t < 14){
+    if (state !== "rationale"){
+      state="rationale";
+      emitFromElement(rationale,"RATIONALE GENERATOR","#ffd700");
+    }
+  }
+
+  /* STEPS PHASE */
+  if (t >= 14){
+    const steps=["Domain","Kompetensi","Konsep","Logika","Eliminasi","Kesimpulan"];
+    const word = steps[beat % steps.length];
+    emitFromElement(video,word,"#fff");
   }
 });
 
-/* ---------- QUIZ TEXT SCATTER ---------- */
+/* ---------- MATH FORMULAS ---------- */
 setInterval(()=>{
-  quiz.querySelectorAll("span").forEach(s=>{
-    s.style.transform=`translate(${Math.random()*8-4}px,${Math.random()*8-4}px)`;
-  });
-},800);
-
-/* ---------- MATH FORMULAS CONTINUOUS ---------- */
-setInterval(()=>{
-  emit("x² + y² = r²",160,350,"#fff");
+  emitFromElement(video,"x² + y² = r²","#fff");
 },1800);
 </script>
 </body>
