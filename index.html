@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<title>Rationale Generator — Visual Proof</title>
+<title>CBTLearning SNBT 2026 — Rationale Generator</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
@@ -21,7 +21,7 @@ html,body{
   height:100%;
 }
 
-/* PHONE */
+/* PHONE BODY */
 .phone{
   position:absolute;
   left:50%;
@@ -29,62 +29,116 @@ html,body{
   width:320px;
   height:640px;
   transform:translate(-50%,-50%);
-  background:#000;
+  background:#050505;
   border-radius:36px;
   border:8px solid #111;
-  box-shadow:0 40px 120px rgba(0,0,0,.85);
+  box-shadow:
+    0 40px 120px rgba(0,0,0,.85),
+    inset 0 0 0 1px rgba(255,215,0,.08);
 }
 
-/* VIDEO AREA */
+/* BRAND */
+.brand{
+  position:absolute;
+  top:12px;
+  right:16px;
+  font-size:14px;
+  font-weight:700;
+  letter-spacing:.5px;
+  color:#ffd700;
+  opacity:.95;
+}
+
+/* SCREEN (GOLD SUBTLE) */
 .screen{
   position:absolute;
-  top:60px;
-  bottom:60px;
-  left:0;
-  right:0;
+  top:140px;
+  bottom:90px;
+  left:14px;
+  right:14px;
+  border-radius:22px;
   overflow:hidden;
+  background:
+    radial-gradient(circle at center,
+      rgba(255,215,0,.14),
+      rgba(255,215,0,.05) 45%,
+      rgba(0,0,0,.9) 75%);
 }
 
+/* RIM LINE */
+.screen::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:22px;
+  border:1px solid rgba(255,215,0,.35);
+  box-shadow:
+    inset 0 0 18px rgba(255,215,0,.15),
+    inset 0 0 2px rgba(255,255,255,.12);
+  pointer-events:none;
+  z-index:3;
+}
+
+/* VIDEO */
 video{
   width:100%;
   height:100%;
-  object-fit:contain;   /* 🔥 VIDEO UTUH */
-  background:#000;
+  object-fit:contain;
+  background:transparent;
+  position:relative;
+  z-index:2;
 }
 
 /* FLOATING MATH */
 .math{
   position:absolute;
   color:#7cff00;
-  font-size:18px;
-  opacity:.6;
-  animation: float 12s linear infinite;
-  pointer-events:none;
+  font-size:16px;
+  opacity:.55;
+  animation: float 10s ease-in-out infinite alternate;
 }
 
 @keyframes float{
-  from{transform:translateY(40px);opacity:0}
-  to{transform:translateY(-40px);opacity:.7}
+  from{transform:translateY(6px)}
+  to{transform:translateY(-6px)}
 }
 
-/* HOOK TEXT */
+/* ARCH TEXT */
+.arch{
+  position:absolute;
+  left:50%;
+  transform:translateX(-50%);
+  white-space:nowrap;
+  text-align:center;
+  font-weight:800;
+  text-shadow:0 6px 24px rgba(0,0,0,.85);
+}
+
+/* TITLE & SUB */
+.title{
+  top:44px;
+  font-size:18px;
+  color:#ffd700;
+  letter-spacing:.6px;
+}
+
+.subtitle{
+  top:70px;
+  font-size:16px;
+  color:#ffffff;
+  opacity:.95;
+}
+
+/* HOOK */
 .hook{
   position:absolute;
+  top:110px;
+  left:50%;
+  transform:translateX(-50%);
+  font-size:18px;
   font-weight:800;
   color:#00e0ff;
-  white-space:nowrap;
-  text-shadow:0 8px 30px rgba(0,0,0,.8);
-}
-
-/* WAVY MOTION */
-.wave{
-  animation: wave 6s ease-in-out infinite;
-}
-
-@keyframes wave{
-  0%{transform:translateX(-50%) translateY(0)}
-  50%{transform:translateX(-50%) translateY(-10px)}
-  100%{transform:translateX(-50%) translateY(0)}
+  text-shadow:0 6px 24px rgba(0,0,0,.85);
 }
 </style>
 </head>
@@ -94,27 +148,35 @@ video{
 
   <div class="phone">
 
-    <!-- FLOATING MATH -->
-    <div class="math" style="top:10px;left:30px;">√x² + 4</div>
-    <div class="math" style="top:20px;right:40px;">∑ log n</div>
-    <div class="math" style="bottom:20px;left:50px;">ΔP = 20%</div>
-    <div class="math" style="bottom:10px;right:30px;">x → y</div>
+    <!-- BRAND -->
+    <div class="brand">ETK Yogya</div>
 
-    <!-- HOOK TOP (ARCH IDEA) -->
-    <div class="hook wave" style="top:28px;left:50%;font-size:22px;">
-      BUKAN CUMA JAWABAN
+    <!-- FLOATING MATH -->
+    <div class="math" style="top:92px;left:26px;">√x² + 4</div>
+    <div class="math" style="top:112px;right:32px;">∑ log n</div>
+    <div class="math" style="bottom:72px;left:42px;">ΔP = 20%</div>
+    <div class="math" style="bottom:64px;right:34px;">x → y</div>
+
+    <!-- TITLE -->
+    <div class="arch title">
+      CBTLearning | Bahas Soal | Mudah | SNBT'26
     </div>
 
-    <!-- VIDEO -->
+    <!-- SUB TITLE -->
+    <div class="arch subtitle">
+      Rationale Generator
+    </div>
+
+    <!-- HOOK -->
+    <div class="hook">
+      Bukan cuma jawaban — tapi alasannya
+    </div>
+
+    <!-- VIDEO SCREEN -->
     <div class="screen">
       <video autoplay muted loop playsinline>
         <source src="https://raw.githubusercontent.com/gyoutrain-lab/tiktokdemo-snbt/main/videos/CutV2.mp4" type="video/mp4">
       </video>
-    </div>
-
-    <!-- HOOK BOTTOM -->
-    <div class="hook wave" style="bottom:26px;left:50%;font-size:20px;color:#ffd700;">
-      SATU SOAL • TUJUH ANALISIS
     </div>
 
   </div>
