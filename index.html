@@ -1,28 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
 <meta charset="UTF-8">
-<title>Rationale Generator Promo</title>
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Rationale Generator — Visual Proof</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
 html,body{
   margin:0;
   width:100%;
   height:100%;
-  background:radial-gradient(circle at top,#111,#000);
+  background:#000;
   overflow:hidden;
-  font-family:system-ui,Segoe UI,Roboto,Inter,sans-serif;
+  font-family:system-ui,Segoe UI,Inter,sans-serif;
 }
 
-/* Stage */
 .stage{
   position:relative;
   width:100%;
   height:100%;
 }
 
-/* Phone Mockup */
+/* PHONE */
 .phone{
   position:absolute;
   left:50%;
@@ -33,119 +32,92 @@ html,body{
   background:#000;
   border-radius:36px;
   border:8px solid #111;
-  box-shadow:0 40px 120px rgba(0,0,0,.8);
-  z-index:2;
+  box-shadow:0 40px 120px rgba(0,0,0,.85);
 }
+
+/* VIDEO AREA */
 .screen{
-  width:100%;
-  height:100%;
+  position:absolute;
+  top:60px;
+  bottom:60px;
+  left:0;
+  right:0;
   overflow:hidden;
-  border-radius:28px;
 }
+
 video{
   width:100%;
   height:100%;
-  object-fit:cover;
+  object-fit:contain;   /* 🔥 VIDEO UTUH */
+  background:#000;
 }
 
-/* Hook Text */
-.hook{
+/* FLOATING MATH */
+.math{
   position:absolute;
-  color:#fff;
-  font-weight:800;
-  opacity:0;
-  white-space:nowrap;
-  text-shadow:0 10px 35px rgba(0,0,0,.8);
+  color:#7cff00;
+  font-size:18px;
+  opacity:.6;
+  animation: float 12s linear infinite;
   pointer-events:none;
 }
 
-/* Font variations */
-.big{font-size:56px;}
-.mid{font-size:42px;}
-.small{font-size:32px;}
-.italic{font-style:italic;}
-.accent1{color:#00e0ff;}
-.accent2{color:#7cff00;}
-.accent3{color:#ffd700;}
+@keyframes float{
+  from{transform:translateY(40px);opacity:0}
+  to{transform:translateY(-40px);opacity:.7}
+}
+
+/* HOOK TEXT */
+.hook{
+  position:absolute;
+  font-weight:800;
+  color:#00e0ff;
+  white-space:nowrap;
+  text-shadow:0 8px 30px rgba(0,0,0,.8);
+}
+
+/* WAVY MOTION */
+.wave{
+  animation: wave 6s ease-in-out infinite;
+}
+
+@keyframes wave{
+  0%{transform:translateX(-50%) translateY(0)}
+  50%{transform:translateX(-50%) translateY(-10px)}
+  100%{transform:translateX(-50%) translateY(0)}
+}
 </style>
 </head>
 
 <body>
 <div class="stage">
 
-  <!-- Mockup Phone -->
   <div class="phone">
+
+    <!-- FLOATING MATH -->
+    <div class="math" style="top:10px;left:30px;">√x² + 4</div>
+    <div class="math" style="top:20px;right:40px;">∑ log n</div>
+    <div class="math" style="bottom:20px;left:50px;">ΔP = 20%</div>
+    <div class="math" style="bottom:10px;right:30px;">x → y</div>
+
+    <!-- HOOK TOP (ARCH IDEA) -->
+    <div class="hook wave" style="top:28px;left:50%;font-size:22px;">
+      BUKAN CUMA JAWABAN
+    </div>
+
+    <!-- VIDEO -->
     <div class="screen">
       <video autoplay muted loop playsinline>
         <source src="https://raw.githubusercontent.com/gyoutrain-lab/tiktokdemo-snbt/main/videos/CutV2.mp4" type="video/mp4">
       </video>
     </div>
+
+    <!-- HOOK BOTTOM -->
+    <div class="hook wave" style="bottom:26px;left:50%;font-size:20px;color:#ffd700;">
+      SATU SOAL • TUJUH ANALISIS
+    </div>
+
   </div>
-
-  <!-- Hook Text -->
-  <div class="hook big accent1">Not just answers</div>
-  <div class="hook big">Here’s the REASON</div>
-
-  <div class="hook mid accent2">1 Question</div>
-  <div class="hook mid">7 Layers of Insight</div>
-
-  <div class="hook small">SNBT</div>
-  <div class="hook small">TPS</div>
-  <div class="hook small">TIU</div>
-
-  <div class="hook mid italic">Not memorizing</div>
-  <div class="hook mid italic">Not guessing</div>
-
-  <div class="hook mid accent3">Rationale Generator</div>
-
 </div>
-
-<script>
-const items=[
-  {t:0,   d:1600, p:curve(80,300,500,160,920,260)},
-  {t:600, d:1600, p:curve(920,360,520,120,120,240)},
-
-  {t:2200,d:1400, p:curve(200,620,600,520,1000,420)},
-  {t:2700,d:1400, p:curve(1000,520,600,360,200,460)},
-
-  {t:4200,d:1200, p:curve(80,160,420,80,760,120)},
-  {t:4600,d:1200, p:curve(900,220,520,160,220,200)},
-  {t:5000,d:1200, p:curve(300,100,600,200,900,140)},
-
-  {t:6500,d:1400, p:curve(120,720,520,660,900,600)},
-  {t:7000,d:1400, p:curve(900,700,520,620,120,640)},
-
-  {t:8800,d:2000, p:curve(420,360,520,320,620,360), stay:true}
-];
-
-const hooks=[...document.querySelectorAll(".hook")];
-
-hooks.forEach((el,i)=>animate(el,items[i]));
-
-function animate(el,opt){
-  let start=null;
-  setTimeout(()=>requestAnimationFrame(step),opt.t);
-
-  function step(ts){
-    if(!start) start=ts;
-    let k=Math.min((ts-start)/opt.d,1);
-    let pos=opt.p(k);
-    el.style.left=pos.x+"px";
-    el.style.top=pos.y+"px";
-    el.style.opacity=k<.1?k*10:1;
-    if(k<1) requestAnimationFrame(step);
-    else if(!opt.stay) setTimeout(()=>el.style.opacity=0,600);
-  }
-}
-
-/* Quadratic Bezier Path */
-function curve(x1,y1,x2,y2,x3,y3){
-  return t=>({
-    x:(1-t)*(1-t)*x1+2*(1-t)*t*x2+t*t*x3,
-    y:(1-t)*(1-t)*y1+2*(1-t)*t*y2+t*t*y3
-  });
-}
-</script>
-
 </body>
 </html>
