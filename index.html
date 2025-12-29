@@ -21,7 +21,7 @@ html,body{
   height:100%;
 }
 
-/* PHONE (3D) */
+/* PHONE BODY */
 .phone{
   position:absolute;
   left:50%;
@@ -30,7 +30,7 @@ html,body{
   height:640px;
   transform:translate(-50%,-50%);
   border-radius:38px;
-  background:linear-gradient(145deg,#0a0a0a,#000);
+  background:linear-gradient(145deg,#0c0c0c,#000);
   box-shadow:0 50px 140px rgba(0,0,0,.9);
 }
 
@@ -42,19 +42,22 @@ html,body{
   overflow:hidden;
   background:
     radial-gradient(circle at center,
-      rgba(255,215,0,.15),
-      rgba(255,215,0,.04) 45%,
+      rgba(255,255,255,.08),
+      rgba(255,255,255,.02) 45%,
       #000 75%);
 }
 
-/* RIM */
+/* NEW RIM — SOFT WHITE / SILVER */
 .screen::before{
   content:"";
   position:absolute;
   inset:0;
   border-radius:30px;
-  border:1px solid rgba(255,215,0,.35);
-  box-shadow:inset 0 0 20px rgba(255,215,0,.18);
+  border:1px solid rgba(230,230,230,.45);
+  box-shadow:
+    inset 0 0 18px rgba(255,255,255,.12),
+    inset 0 0 3px rgba(255,255,255,.25),
+    0 0 0 1px rgba(180,180,180,.15);
   z-index:10;
   pointer-events:none;
 }
@@ -66,7 +69,8 @@ html,body{
   right:18px;
   font-size:13px;
   font-weight:700;
-  color:#ffd700;
+  color:#f0f0f0;
+  letter-spacing:.5px;
   z-index:11;
 }
 
@@ -160,10 +164,8 @@ video{
   <div class="phone">
     <div class="screen">
 
-      <!-- BRAND -->
       <div class="brand">ETK Yogya</div>
 
-      <!-- TITLE -->
       <div class="title-wrap">
         <svg viewBox="0 0 320 80" width="100%" height="80">
           <path id="curve" d="M20,65 Q160,10 300,65" fill="none"/>
@@ -176,34 +178,4 @@ video{
       </div>
 
       <div class="subtitle">Rationale Generator</div>
-      <div class="hook">Bukan cuma jawaban — tapi alasannya</div>
-
-      <!-- VIDEO -->
-      <video autoplay muted loop playsinline>
-        <source src="https://raw.githubusercontent.com/gyoutrain-lab/tiktokdemo-snbt/main/videos/CutV2.mp4" type="video/mp4">
-      </video>
-
-      <!-- FLOATING MATH -->
-      <div class="math green" style="top:160px;left:20px;">√x² + 4</div>
-      <div class="math white" style="top:190px;right:30px;">∑ log n</div>
-      <div class="math green" style="top:260px;left:50px;">ΔP = 20%</div>
-      <div class="math white" style="top:280px;right:40px;">x → y</div>
-
-      <!-- QUIZ -->
-      <div class="quiz">
-        <div class="quiz-q">
-          Jika harga Rp50.000 naik 20%, harga baru adalah…
-        </div>
-        <div class="quiz-opt">
-          <span>A. 55.000</span>
-          <span>B. 58.000</span>
-          <span>C. 60.000</span>
-          <span>D. 62.000</span>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</div>
-</body>
-</html>
+      <div class="hook">Bukan cuma
