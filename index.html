@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<title>CBTLearning SNBT 2026 — Rationale Generator</title>
+<title>CBTLearning SNBT 2026</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
@@ -21,7 +21,7 @@ html,body{
   height:100%;
 }
 
-/* PHONE BODY */
+/* PHONE BODY (3D) */
 .phone{
   position:absolute;
   left:50%;
@@ -29,156 +29,157 @@ html,body{
   width:320px;
   height:640px;
   transform:translate(-50%,-50%);
-  background:#050505;
-  border-radius:36px;
-  border:8px solid #111;
+  border-radius:38px;
+  background:linear-gradient(145deg,#0a0a0a,#000);
   box-shadow:
-    0 40px 120px rgba(0,0,0,.85),
+    0 50px 140px rgba(0,0,0,.9),
     inset 0 0 0 1px rgba(255,215,0,.08);
+}
+
+/* INNER SCREEN */
+.screen{
+  position:absolute;
+  inset:16px;
+  border-radius:30px;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at center,
+      rgba(255,215,0,.16),
+      rgba(255,215,0,.05) 45%,
+      #000 75%);
+}
+
+/* INNER RIM FOLLOWING PHONE */
+.screen::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:30px;
+  border:1px solid rgba(255,215,0,.4);
+  box-shadow:
+    inset 0 0 24px rgba(255,215,0,.18),
+    inset 0 0 2px rgba(255,255,255,.15);
+  z-index:5;
+  pointer-events:none;
+}
+
+/* VIDEO */
+video{
+  position:absolute;
+  top:120px;
+  bottom:90px;
+  left:0;
+  right:0;
+  width:100%;
+  height:auto;
+  object-fit:contain;
+  z-index:2;
 }
 
 /* BRAND */
 .brand{
   position:absolute;
-  top:12px;
-  right:16px;
-  font-size:14px;
+  top:14px;
+  right:20px;
+  font-size:13px;
   font-weight:700;
-  letter-spacing:.5px;
-  color:#ffd700;
-  opacity:.95;
-}
-
-/* SCREEN (GOLD SUBTLE) */
-.screen{
-  position:absolute;
-  top:140px;
-  bottom:90px;
-  left:14px;
-  right:14px;
-  border-radius:22px;
-  overflow:hidden;
-  background:
-    radial-gradient(circle at center,
-      rgba(255,215,0,.14),
-      rgba(255,215,0,.05) 45%,
-      rgba(0,0,0,.9) 75%);
-}
-
-/* RIM LINE */
-.screen::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  border-radius:22px;
-  border:1px solid rgba(255,215,0,.35);
-  box-shadow:
-    inset 0 0 18px rgba(255,215,0,.15),
-    inset 0 0 2px rgba(255,255,255,.12);
-  pointer-events:none;
-  z-index:3;
-}
-
-/* VIDEO */
-video{
-  width:100%;
-  height:100%;
-  object-fit:contain;
-  background:transparent;
-  position:relative;
-  z-index:2;
-}
-
-/* FLOATING MATH */
-.math{
-  position:absolute;
-  color:#7cff00;
-  font-size:16px;
-  opacity:.55;
-  animation: float 10s ease-in-out infinite alternate;
-}
-
-@keyframes float{
-  from{transform:translateY(6px)}
-  to{transform:translateY(-6px)}
-}
-
-/* ARCH TEXT */
-.arch{
-  position:absolute;
-  left:50%;
-  transform:translateX(-50%);
-  white-space:nowrap;
-  text-align:center;
-  font-weight:800;
-  text-shadow:0 6px 24px rgba(0,0,0,.85);
-}
-
-/* TITLE & SUB */
-.title{
-  top:44px;
-  font-size:18px;
-  color:#ffd700;
   letter-spacing:.6px;
+  color:#ffd700;
+  z-index:6;
+}
+
+/* SVG TITLE */
+.title-wrap{
+  position:absolute;
+  top:26px;
+  left:0;
+  width:100%;
+  z-index:6;
 }
 
 .subtitle{
-  top:70px;
-  font-size:16px;
-  color:#ffffff;
+  position:absolute;
+  top:72px;
+  width:100%;
+  text-align:center;
+  font-size:15px;
+  font-weight:700;
+  color:#fff;
   opacity:.95;
+  z-index:6;
 }
 
 /* HOOK */
 .hook{
   position:absolute;
-  top:110px;
-  left:50%;
-  transform:translateX(-50%);
-  font-size:18px;
+  top:98px;
+  width:100%;
+  text-align:center;
+  font-size:17px;
   font-weight:800;
   color:#00e0ff;
-  text-shadow:0 6px 24px rgba(0,0,0,.85);
+  text-shadow:0 6px 24px rgba(0,0,0,.9);
+  z-index:6;
+}
+
+/* FLOATING MATH */
+.math{
+  position:absolute;
+  font-size:16px;
+  font-weight:600;
+  opacity:.65;
+  animation: drift 8s ease-in-out infinite alternate;
+  z-index:4;
+}
+
+.white{color:#fff}
+.green{color:#7cff00}
+
+@keyframes drift{
+  from{transform:translate(0,0) scale(.9)}
+  to{transform:translate(20px,-20px) scale(1.1)}
 }
 </style>
 </head>
 
 <body>
 <div class="stage">
-
   <div class="phone">
-
-    <!-- BRAND -->
-    <div class="brand">ETK Yogya</div>
-
-    <!-- FLOATING MATH -->
-    <div class="math" style="top:92px;left:26px;">√x² + 4</div>
-    <div class="math" style="top:112px;right:32px;">∑ log n</div>
-    <div class="math" style="bottom:72px;left:42px;">ΔP = 20%</div>
-    <div class="math" style="bottom:64px;right:34px;">x → y</div>
-
-    <!-- TITLE -->
-    <div class="arch title">
-      CBTLearning | Bahas Soal | Mudah | SNBT'26
-    </div>
-
-    <!-- SUB TITLE -->
-    <div class="arch subtitle">
-      Rationale Generator
-    </div>
-
-    <!-- HOOK -->
-    <div class="hook">
-      Bukan cuma jawaban — tapi alasannya
-    </div>
-
-    <!-- VIDEO SCREEN -->
     <div class="screen">
+
+      <!-- BRAND -->
+      <div class="brand">ETK Yogya</div>
+
+      <!-- ARCH TITLE -->
+      <div class="title-wrap">
+        <svg viewBox="0 0 320 90" width="100%" height="90">
+          <path id="curve" d="M20,70 Q160,10 300,70" fill="none"/>
+          <text fill="#ffd700" font-size="16" font-weight="800">
+            <textPath href="#curve" startOffset="50%" text-anchor="middle">
+              CBTLearning | Bahas Soal | Mudah | SNBT'26
+            </textPath>
+          </text>
+        </svg>
+      </div>
+
+      <!-- SUBTITLE -->
+      <div class="subtitle">Rationale Generator</div>
+
+      <!-- HOOK -->
+      <div class="hook">Bukan cuma jawaban — tapi alasannya</div>
+
+      <!-- VIDEO -->
       <video autoplay muted loop playsinline>
         <source src="https://raw.githubusercontent.com/gyoutrain-lab/tiktokdemo-snbt/main/videos/CutV2.mp4" type="video/mp4">
       </video>
-    </div>
 
+      <!-- FLOATING MATH -->
+      <div class="math green" style="top:160px;left:20px;">√x² + 4</div>
+      <div class="math white" style="top:200px;right:30px;">∑ log n</div>
+      <div class="math green" style="bottom:140px;left:40px;">ΔP = 20%</div>
+      <div class="math white" style="bottom:120px;right:36px;">x → y</div>
+
+    </div>
   </div>
 </div>
 </body>
