@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>CBTLearning SNBT 2026</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<title>CBTLearning | Rationale Generator</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 <style>
 html,body{
@@ -12,7 +12,7 @@ html,body{
   height:100%;
   background:#000;
   overflow:hidden;
-  font-family:system-ui,Segoe UI,Inter,sans-serif;
+  font-family:system-ui,-apple-system,Segoe UI,Inter,sans-serif;
 }
 
 .phone{
@@ -23,7 +23,7 @@ html,body{
   height:640px;
   transform:translate(-50%,-50%);
   border-radius:38px;
-  background:linear-gradient(145deg,#0c0c0c,#000);
+  background:linear-gradient(145deg,#0b0b0b,#000);
   box-shadow:0 50px 140px rgba(0,0,0,.9);
 }
 
@@ -35,17 +35,17 @@ html,body{
   background:#000;
 }
 
-/* RIM — DI ATAS SEMUA */
+/* SOFT SILVER RIM */
 .screen::before{
   content:"";
   position:absolute;
   inset:0;
   border-radius:30px;
-  border:1px solid rgba(230,230,230,.45);
+  border:1px solid rgba(220,220,220,.45);
   box-shadow:
     inset 0 0 14px rgba(255,255,255,.12),
     inset 0 0 3px rgba(255,255,255,.25);
-  z-index:20;
+  z-index:30;
   pointer-events:none;
 }
 
@@ -56,28 +56,30 @@ html,body{
   right:18px;
   font-size:13px;
   font-weight:700;
-  color:#f0f0f0;
-  z-index:15;
+  color:#f2f2f2;
+  letter-spacing:.6px;
+  z-index:20;
 }
 
 /* TITLE */
-.title-wrap{position:absolute;top:22px;width:100%;z-index:15}
+.title-wrap{position:absolute;top:22px;width:100%;z-index:20;}
 .subtitle{
   position:absolute;top:66px;width:100%;
-  text-align:center;font-size:15px;font-weight:700;color:#fff;z-index:15;
+  text-align:center;font-size:15px;font-weight:700;color:#fff;
+  z-index:20;
 }
 .hook{
   position:absolute;top:92px;width:100%;
-  text-align:center;font-size:17px;font-weight:800;color:#00e0ff;z-index:15;
+  text-align:center;font-size:17px;font-weight:800;color:#00e0ff;
+  z-index:20;
 }
 
-/* VIDEO — CENTERED & SAFE */
+/* VIDEO CENTERED */
 .video-wrap{
   position:absolute;
   inset:0;
-  z-index:4;
+  z-index:5;
 }
-
 video{
   position:absolute;
   top:50%;
@@ -97,9 +99,8 @@ video{
   right:14px;
   font-size:14px;
   color:#fff;
-  z-index:10;
+  z-index:15;
 }
-
 .quiz-opt span{
   display:inline-block;
   margin-right:8px;
@@ -110,24 +111,6 @@ video{
   0%{transform:translate(0,0) scale(1)}
   50%{transform:translate(10px,-6px) scale(1.1)}
   100%{transform:translate(0,0) scale(1)}
-}
-
-/* FLOATING MATH */
-.math{
-  position:absolute;
-  font-size:15px;
-  font-weight:600;
-  opacity:.65;
-  animation: mathMove 6s linear infinite alternate;
-  z-index:6;
-}
-.green{color:#7cff00}
-.white{color:#fff}
-
-@keyframes mathMove{
-  0%{transform:translate(0,0) scale(.8)}
-  50%{transform:translate(20px,-20px) scale(1.3)}
-  100%{transform:translate(-15px,15px) scale(.9)}
 }
 </style>
 </head>
@@ -143,7 +126,7 @@ video{
         <path id="curve" d="M20,65 Q160,10 300,65" fill="none"/>
         <text fill="#ffd700" font-size="16" font-weight="800">
           <textPath href="#curve" startOffset="50%" text-anchor="middle">
-            CBTLearning|Bahas|Mudah|SNBT'26
+            CBTLearning | Bahas Soal | Mudah | SNBT'26
           </textPath>
         </text>
       </svg>
@@ -158,9 +141,6 @@ video{
       </video>
     </div>
 
-    <div class="math green" style="top:180px;left:18px;">√x² + 4</div>
-    <div class="math white" style="top:210px;right:30px;">∑ log n</div>
-
     <div class="quiz">
       <div><b>Jika harga Rp50.000 naik 20%, harga baru adalah…</b></div>
       <div class="quiz-opt">
@@ -173,5 +153,84 @@ video{
 
   </div>
 </div>
+
+<script>
+const video = document.querySelector("video");
+const screen = document.querySelector(".screen");
+
+/* CINEMATIC TEMPO */
+const BPM = 72;
+const BEAT = 60 / BPM;
+let lastBeat = 0;
+
+/* ANCHORS */
+const anchors = {
+  quiz: { x:160, y:470 },
+  rationale:{ x:160, y:340 },
+  steps:[
+    {x:90,y:260},{x:230,y:260},{x:90,y:300},{x:230,y:300},
+    {x:90,y:340},{x:230,y:340},{x:160,y:380}
+  ]
+};
+
+const stepWords=["Domain","Competency","Concept","Logic","Trap","Elimination","Conclusion"];
+
+function spawnWord(text,x,y,color="#fff",power=1){
+  const el=document.createElement("div");
+  const depth=Math.random();
+  const scaleStart=0.15+depth*0.15;
+  const scaleEnd=2.2+depth*0.8;
+  const rotate=(Math.random()-0.5)*16;
+
+  el.textContent=text;
+  el.style.position="absolute";
+  el.style.left=x+"px";
+  el.style.top=y+"px";
+  el.style.fontWeight="900";
+  el.style.fontSize="20px";
+  el.style.letterSpacing=".5px";
+  el.style.color=color;
+  el.style.pointerEvents="none";
+  el.style.zIndex=18;
+  el.style.opacity="1";
+  el.style.filter="blur(0px)";
+  el.style.textShadow="0 0 12px rgba(255,255,255,.35),0 0 32px rgba(255,255,255,.15)";
+  el.style.transform=`translate(-50%,-50%) scale(${scaleStart}) rotate(0deg)`;
+  el.style.transition=
+    "transform 3.4s cubic-bezier(.15,.85,.15,1),opacity 3.4s ease-out,filter 3.4s ease-out";
+
+  screen.appendChild(el);
+
+  requestAnimationFrame(()=>{
+    const dx=(Math.random()-0.5)*260;
+    const dy=(Math.random()-0.5)*260;
+    el.style.transform=
+      `translate(${dx}px,${dy}px) scale(${scaleEnd}) rotate(${rotate}deg)`;
+    el.style.opacity="0";
+    el.style.filter="blur(4px)";
+    el.style.textShadow="0 0 2px rgba(255,255,255,.1)";
+  });
+
+  setTimeout(()=>el.remove(),3500);
+}
+
+video.addEventListener("timeupdate",()=>{
+  const t=video.currentTime;
+  if(t-lastBeat<BEAT) return;
+  lastBeat=t;
+  const power=0.8+Math.random()*0.6;
+
+  if(t<6){
+    setTimeout(()=>spawnWord("SNBT QUIZ",anchors.quiz.x,anchors.quiz.y,"#00e0ff",power),Math.random()*120);
+  }else if(t<14){
+    const w=["RATIONALE","EXPLAIN","REASON"][Math.floor(Math.random()*3)];
+    setTimeout(()=>spawnWord(w,anchors.rationale.x,anchors.rationale.y,w==="RATIONALE"?"#ffd700":"#fff",power),Math.random()*120);
+  }else{
+    const i=Math.floor(Math.random()*7);
+    setTimeout(()=>spawnWord(stepWords[i],anchors.steps[i].x,anchors.steps[i].y,"#fff",power),Math.random()*120);
+  }
+});
+</script>
+
 </body>
 </html>
